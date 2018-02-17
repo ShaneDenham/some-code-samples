@@ -1,0 +1,37 @@
+.blog-header-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 294px;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+    }
+}
+
+.byline {
+	padding: 1rem 0;
+	color: inherit;
+
+	.photo-circle {
+		@include circle(50px);
+		display: block;
+		overflow: hidden;
+		margin-right: 14px;
+	}
+
+	.photo {
+		max-width: 100%;
+	}
+
+	.meta {
+		padding-top: 4px;
+		font-size: 12px;
+		line-height: 14px;
+	}
+
+	a {
+		text-decoration: underline;
+	}
+}

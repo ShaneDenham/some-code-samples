@@ -1,0 +1,43 @@
+//////////////////////
+// Border Radius
+//////////////////////
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+//////////////////////
+// Linear Gradient
+//////////////////////
+@mixin linear-gradient($colorL, $colorR) {
+    background: $colorR;
+    background: -webkit-linear-gradient(left, $colorL, $colorR);
+    background: -o-linear-gradient(right, $colorL, $colorR);
+    background: -moz-linear-gradient(right, $colorL, $colorR);
+    background: linear-gradient(to right, $colorL, $colorR);
+}
+
+//////////////////////
+// Round Images
+//////////////////////
+@mixin circle($width) {
+  	width: $width;
+  	height: $width;
+  	min-width: $width;
+  	min-height: $width;
+  	border: none;
+  	-webkit-border-radius: $width/2;
+    -moz-border-radius: $width/2;
+    border-radius: $width/2;
+}
+
+//////////////////////
+// CTA Modules
+//////////////////////
+@mixin module($background) {
+	@include border-radius(25px);
+	background-color: $background;
+	padding: 2rem 0;
+}
