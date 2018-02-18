@@ -8,11 +8,8 @@
 
 <div class="top-bar stacked-for-medium" id="top-bar-menu">
 	<div class="top-bar-left float-left">
-		<ul class="menu">
-			<a href="http://www.covenanteyes.com">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/Logo_1_Color_300px.png" class="logo" />
-            </a>
-		</ul>
+		<h1><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php bloginfo('name'); ?>"><?php bloginfo('name'); ?></a></h1>
+		<h2><?php bloginfo('description'); ?></h2>
 	</div>
 	<div class="top-bar-right show-for-medium">
 		<div class="grid-x">
@@ -21,11 +18,11 @@
 			</div>
 		    <div class="cell shrink">
 		    	<ul class="menu dropdown">
-		    		<li><a href="#">My Account</a></li>
+		    		<li><a href="#">Cool Link</a></li>
 		    		<li><a href="#" class="gradient-button">
 		    			<div class="svg">
                             <?php $imgWidth = "21"; $imgHeight = "20"; include( 'svg/create-account.php' ); ?>
-                        </div><span>Create Account</span>
+                        </div><span>Nice Button</span>
 		    		</a></li>
 		    	</ul>
 		    </div>
