@@ -1,5 +1,6 @@
+// Blog subcribe CTA
 .subscribe {
-	@include module(#c5e6f7);
+	@include module($new-blue-light);
 	padding: 3rem 0;
 
 	h1 {

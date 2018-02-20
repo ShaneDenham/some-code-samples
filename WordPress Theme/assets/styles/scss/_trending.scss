@@ -1,0 +1,40 @@
+.trending {
+	@include module($warm-gray-light);
+
+	.title {
+		font-size: 18px;
+		text-transform: uppercase;
+	}
+
+	.trending-content {
+		flex-wrap: nowrap;
+		overflow-x: auto;
+
+		.card-section {
+			padding: 0 1rem;
+		}
+
+		.card {
+			flex: 0 0 auto;
+			width: 269px;
+		    border: none;
+		    background: transparent;
+		    margin-bottom: 0;
+		}
+
+		.card-image {
+			max-height: 142px;
+			overflow: hidden;
+			margin-bottom: 1.75rem;
+			box-shadow: 0px 4px 14px $gray-light-30;
+		}
+
+		h4 a {
+			color: $dark;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+}

@@ -30,6 +30,7 @@ get_header(); ?>
 		</div> <!-- end #inner-content -->
 
 		<?php get_template_part( 'parts/content', 'subscribe' ); ?>
+		<?php get_template_part( 'parts/content', 'trending' ); ?>
 
 		<div class="grid-x grid-margin-x">
 				<?php comments_template(); ?>
