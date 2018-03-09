@@ -5,3 +5,7 @@
 `yarn install` to install.
 
 `yarn test` to run the provided unit tests.
+
+## Code Review
+
+- api/managed-records.js
