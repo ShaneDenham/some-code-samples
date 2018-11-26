@@ -26,27 +26,40 @@ function removeOpen(item) {
 // Helpers
 // --------------------
 
-// find the index offest based on the provided page number
+// Check to see if the data object is empty
+function isData(data) {
+	return data != '' ? true : false;
+}
+
+// Set the page when not passed in by the request
+function getPage(page) {
+	return page != undefined && page != null ? page : 1
+}
+
+// Find the index offest based on the provided page number
 function findOffset(page) {
-	if ( page ) {
-		return page * 10 - 10;
-	}
-	return 0;
+	return page ? page * 10 - 10 : 0;
 }
 
 // Check to see if the color is a primary color
 function isPrimary(color) {
-	var primaryColors = ['red', 'yellow', 'blue']
+	const primaryColors = ['red', 'yellow', 'blue']
 
-	if ( primaryColors.indexOf(color) != -1 ) {
+	return primaryColors.indexOf(color) != -1 ? true : false;
+}
+
+// Set the value of isPrimary
+function checkForPrimary(color) {
+	if ( isPrimary(color) ) {
 		return true;
+	} else {
+		return false;
 	}
-	return false;
 }
 
 // Add the isPrimary key
 function addIsPrimary(item) {
-	item.isPrimary = isPrimary(item.color);
+	item.isPrimary = checkForPrimary(item.color);
 	return item;
 }
 
@@ -72,55 +85,63 @@ function getClosedPrimaryCount(data) {
 }
 
 function getPrevious(page) {
-	var previous = page - 1;
-
-	if ( previous >= 1 ) {
-		return previous;
-	}
-	return null;
+	return page > 1 && page <= 51 ? page - 1 : null;
 }
 
-function getNext(page) {
-	var next = page + 1;
-
-	if ( next <= 50 ) {
-		return next;
-	}
-	return null;
+function getNext(page, data) {
+	return data && page <= 49 ? page + 1 : null;
 }
 
+function transformData(data) {
+
+}
+
+// Handle the response
+// --------------------
+
+function handleResponse(response) {
+  return response.json()
+    .then(json => {
+      if (response.ok) {
+        return json
+      } else {
+        return Promise.reject(json)
+      }
+    })
+}
 
 // Retrieve and process the requested data
 // --------------------
 function retrieve(options = {page: 1, colors: []}) {
 
 	// Find the offset based on the requested page number
-	var offset = findOffset(options.page);
+	const offset = findOffset(options.page);
+
+	// Set the page number
+	const page = getPage(options.page);
 
 	// Build the request URL
-	var url = URI(window.path + "?limit=10")
-		.addSearch("offset", offset)
-	    .addSearch({ color: options.colors });
+	let url = URI(window.path + "?limit=10")
+		.addSearch( "offset", offset)
+	    .addSearch({"color[]": options.colors});
 
 	// Request data from the records endpoint
-	var result = fetch(url)
-	    .then(response => {
-		    if (response.ok) {
-		    	return response.json()
-		    } else {
-		      	return Promise.reject('Something went wrong!')
-		    }
-		})
+	return fetch(url)
+	    .then(handleResponse)
 	    .then(data => {
-	  		result.ids = data.map(getIDs);
-	  		result.open = getOpen(data);
-	  		result.closedPrimaryCount = getClosedPrimaryCount(data).length;
-	  		result.previousPage = getPrevious(options.page);
-	  		result.nextPage = getNext(options.page);
+	    	// Create the empty result object
+	    	let result = {previousPage: null, nextPage: null, ids: [], open: [], closedPrimaryCount: 0};
+
+	    	// Add transformed data to the result object
+	    	result.previousPage = getPrevious(page);
+	    	result.nextPage = getNext(page, isData(data));
+		  	result.ids = data.map(getIDs);
+		  	result.open = getOpen(data);
+		  	result.closedPrimaryCount = getClosedPrimaryCount(data).length;
+
+	  		return result;
 	  	})
 	    .catch(error => console.log('Something went wrong! The error was: ', error));
-
-	return result;
 }
 
 export default retrieve;
